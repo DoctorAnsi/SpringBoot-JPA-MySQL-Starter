@@ -1,16 +1,20 @@
 package com.ashish.SpringBootJPA.entity;
 
+import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
+
+//@Data
 @Entity
 @Table(name = "PRODUCT_TABLE")
 public class Product {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String name;
     private int quantity;
     private double price;
@@ -22,11 +26,11 @@ public class Product {
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -56,4 +60,31 @@ public class Product {
 
     public Product() {
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                quantity == product.quantity &&
+                Double.compare(product.price, price) == 0 &&
+                Objects.equals(name, product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, quantity, price);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
+    }
 }
+
